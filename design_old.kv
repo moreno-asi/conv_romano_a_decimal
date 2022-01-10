@@ -1,6 +1,6 @@
 #Definimos nuestros propios botones con unas reglas
 <SpecialButton@Button>:
-    #size_hint: (0.2, 0.2)
+    size_hint: (0.2, 0.2)
     font_size: 32
     background_color: (1,1,1,0.5)
     font_size: self.width/4
@@ -12,28 +12,33 @@
 
 <CalculadoraScreen>:
     #Creamos el Box Layout
-    GridLayout:
-    
-        rows:7
+    BoxLayout:
+        #padding: 5
+        spacing: 5
         
         #Orientacion vertical 
-        #orientation: 'vertical'
+        orientation: 'vertical'
         #Definimos su tamaño al que tenga la ventana
-        #size:root.width, root.height
-        #Creamos la caja de texto para el displayç
-        BoxLayout:
-            TextInput:
-                id: entry
-                halign: 'right'
-                hint_text: "0"
-                #font_size: self.width/4
-                font_size: self.height/2
-                #font_size: 70
-                multiline: False
-                #size_hint: (1, 0.20)
-                padding_y: [self.height / 2 - (self.line_height / 2.0) * len(self._lines), 0]
+        size:root.width, root.height
+        #Creamos la caja de texto para el display
+        TextInput:
+            id: entry
+            halign: 'right'
+            hint_text: "0"
+            #font_size: self.width/4
+            font_size: self.height/2
+            #font_size: 70
+            multiline: False
+            size_hint: (1, 0.20)
+            padding_y: [self.height / 2 - (self.line_height / 2.0) * len(self._lines), 0]
+            
+        #Creamos el Grid Layout para los botones
+        GridLayout: 
+            #Definimos numero de filas y columnas
+            cols:4
+            rows:5
 
-        BoxLayout:
+            #Creamos los botones
             #PRIMERA FILA
             SpecialButton:
                 text:"M"
@@ -46,8 +51,7 @@
                 on_press:root.pulsacion("C")
             SpecialButton:
                 text:"L"
-                on_press:root.pulsacion("L")   
-        BoxLayout:
+                on_press:root.pulsacion("L")
             #SEGUNDA FILA
             NormalButton:
                 text:"7"
@@ -59,9 +63,8 @@
                 text:"9"
                 on_press:root.pulsacion("9")
             SpecialButton:
-                text:"X"
-                on_press:root.pulsacion("X") 
-        BoxLayout:
+                text:"V"
+                on_press:root.pulsacion("V")
             #TERCERA FILA
             NormalButton:
                 text:"4"
@@ -73,9 +76,8 @@
                 text:"6"
                 on_press:root.pulsacion("6")
             SpecialButton:
-                text:"V"
-                on_press:root.pulsacion("V")
-        BoxLayout:
+                text:"I"
+                on_press:root.pulsacion("I")
             #CUARTA FILA
             NormalButton:
                 text:"1"
@@ -87,31 +89,25 @@
                 text:"3"
                 on_press:root.pulsacion("3")
             SpecialButton:
-                text:"I"
-                on_press:root.pulsacion("I")
-        BoxLayout:
+                text:u"\u00AB"
+                on_press:root.borra_caracter()
             #QUINTA FILA
             NormalButton:
                 text:"0"
                 on_press:root.pulsacion("0")
             SpecialButton:
-                text:u"\u00AB"
-                on_press:root.borra_caracter()
+                text:"CONV"
+                background_normal:''
+                background_color:(219/255, 180/255 , 24/255, 1)
+                on_press:root.convertir()            
             SpecialButton:
                 text:"DEL"
                 on_press:root.borra_display()
             SpecialButton:
                 text:"HELP"
                 text: u"\u003F"
-                on_press:root.ir_ayuda()   
-        BoxLayout:
-            #SEXTA FILA
-            SpecialButton:
-                text:"="
-                font_size: 5
-                background_normal:''
-                background_color:(219/255, 180/255 , 24/255, 1)
-                on_press:root.convertir()   
+                on_press:root.ir_ayuda()
+            
 
 <AyudaScreen>:
     BoxLayout:
